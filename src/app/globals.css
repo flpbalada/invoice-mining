@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+@plugin "daisyui" {
+	themes: cmyk --default;
+}
+
+@layer base {
+	body {
+		@apply m-0 min-h-screen bg-slate-100 p-0 text-base whitespace-pre-line text-slate-700 md:text-lg;
+	}
+
+	h1,
+	h2,
+	h3 {
+		@apply mb-1 font-serif font-extrabold text-slate-900;
+	}
+
+	h1 {
+		@apply text-2xl md:text-4xl;
+	}
+
+	h2 {
+		@apply text-lg md:text-2xl;
+	}
+
+	h3 {
+		@apply text-base md:text-lg;
+	}
+
+	a {
+		@apply hover:cursor-pointer;
+	}
+
+	ul {
+		@apply my-2 list-disc pl-5;
+	}
+}

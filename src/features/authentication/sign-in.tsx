@@ -1,0 +1,60 @@
+import { Box } from '@/components/box'
+import { auth, signIn } from '@/services/auth'
+import { Button, Input } from '@headlessui/react'
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
+
+export function SignIn() {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<SignInBody />
+		</Suspense>
+	)
+}
+
+async function SignInBody() {
+	const t = await getTranslations('SignIn')
+	const session = await auth()
+
+	if (session) redirect('/') // User is already signed in
+
+	return (
+		<div className='container mx-auto p-4'>
+			<Box className='mx-auto'>
+				<div>
+					<h1>{t('title')}</h1>
+					<p>{t('subtitle')}</p>
+				</div>
+				<SignInForm />
+			</Box>
+		</div>
+	)
+}
+
+function SignInForm() {
+	const t = useTranslations('SignIn.SignInForm')
+	return (
+		<form
+			action={async formData => {
+				'use server'
+				await signIn('resend', formData)
+			}}
+			className='flex gap-4'
+		>
+			<Input
+				type='text'
+				name='email'
+				placeholder='Email'
+				className='input'
+			/>
+			<Button
+				type='submit'
+				className='btn btn-primary'
+			>
+				{t('submit')}
+			</Button>
+		</form>
+	)
+}

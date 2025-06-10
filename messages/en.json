@@ -1,0 +1,12 @@
+{
+	"GlobalErrorHandler": {
+		"error": "An unexpected error occurred. Please try again later."
+	},
+	"Footer": {
+		"brand": "© {year} Your Company Name. All rights reserved."
+	},
+	"useGetNavbarUserMenuLinks": {
+		"signOut": "Sign Out",
+		"signIn": "Sign In"
+	}
+}
