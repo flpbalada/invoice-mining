@@ -1,3 +1,5 @@
-export default function Home() {
-	return <div>hello</div>
+import { redirect } from 'next/navigation'
+
+export default function Page() {
+	redirect('/invoice-mining')
 }

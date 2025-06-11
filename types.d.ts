@@ -4,6 +4,7 @@ declare namespace NodeJS {
 			NODE_ENV: 'development' | 'production'
 			NEXT_PUBLIC_HOST: string
 			AUTH_RESEND_KEY: string
+			MISTRAL_API_KEY: string
 		}
 	}
 }

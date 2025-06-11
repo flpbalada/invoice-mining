@@ -8,5 +8,14 @@
 	"useGetNavbarUserMenuLinks": {
 		"signOut": "Sign Out",
 		"signIn": "Sign In"
+	},
+	"Error": {
+		"title": "Something went wrong!",
+		"description": "We're sorry, but an unexpected error occurred.",
+		"suggestion": "Please try again or contact support if the problem persists.",
+		"tryAgain": "Try again",
+		"goToHomepage": "Go to Homepage",
+		"contactSupport": "If you need further assistance, please contact us at:",
+		"contactEmail": "support@example.com"
 	}
 }

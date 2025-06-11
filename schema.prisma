@@ -7,6 +7,37 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Job {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  items     JobItem[]
+}
+
+model JobItem {
+  id         String        @id @default(cuid())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  fileBase64 String
+  data       Json
+  type       JobItemType   @default(INVOICE)
+  status     JobItemStatus @default(PENDING)
+  error      String?
+  job        Job           @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobId      String
+}
+
+enum JobItemStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+enum JobItemType {
+  INVOICE
+}
+
 // --- Auth models ---
 
 model User {
