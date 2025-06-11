@@ -1,13 +1,14 @@
 import { Prisma } from '@prisma/client'
-import { MistralOCRInvoice } from './mistral-ocr'
+import { mistralOCR, MistralOCR } from './mistral-ocr'
 import { prisma } from './prisma'
 import { catchError } from '../utils/catch-error'
+import { createSingleton } from '../utils/create-singleton'
 
 export class InvoiceMiningJobItem {
 	private db: typeof prisma
-	private mistralOCR: MistralOCRInvoice
+	private mistralOCR: MistralOCR
 
-	constructor(db: typeof prisma, mistralOCR: MistralOCRInvoice) {
+	constructor(db: typeof prisma, mistralOCR: MistralOCR) {
 		this.db = db
 		this.mistralOCR = mistralOCR
 	}
@@ -67,3 +68,8 @@ export class InvoiceMiningJobItem {
 		})
 	}
 }
+
+export const invoiceMiningJobItem = createSingleton(
+	'invoiceMiningJobItem',
+	() => new InvoiceMiningJobItem(prisma, mistralOCR),
+)

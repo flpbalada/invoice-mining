@@ -1,5 +1,6 @@
 import { prisma } from '@/services/prisma'
-import { InvoiceMiningJobItem } from './invoice-mining-job-item'
+import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job-item'
+import { createSingleton } from '../utils/create-singleton'
 
 export class InvoiceMiningJob {
 	private db: typeof prisma
@@ -37,3 +38,8 @@ export class InvoiceMiningJob {
 		return jobItemIds
 	}
 }
+
+export const invoiceMiningJob = createSingleton(
+	'invoiceMiningJob',
+	() => new InvoiceMiningJob(prisma, invoiceMiningJobItem),
+)

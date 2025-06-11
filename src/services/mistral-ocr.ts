@@ -1,10 +1,12 @@
 import { Mistral } from '@mistralai/mistralai'
 import { z } from 'zod'
 import { responseFormatFromZodObject } from '@mistralai/mistralai/extra/structChat'
+import { createSingleton } from '../utils/create-singleton'
+import { mistral } from './mistral'
 
 type Model = 'mistral-ocr-latest'
 
-export class MistralOCRInvoice {
+export class MistralOCR {
 	private client: Mistral
 
 	constructor({ mistralClient }: { mistralClient: Mistral }) {
@@ -88,3 +90,9 @@ export class MistralOCRInvoice {
 		),
 	})
 }
+
+export const mistralOCR = createSingleton('mistralOCR', () => {
+	return new MistralOCR({
+		mistralClient: mistral,
+	})
+})

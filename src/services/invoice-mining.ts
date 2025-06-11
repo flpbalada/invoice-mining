@@ -1,14 +1,9 @@
-import { Mistral } from '@mistralai/mistralai'
-import { InvoiceMiningJobItem } from './invoice-mining-job-item'
-import { InvoiceMiningJob } from './invoice-mining-job'
-import { prisma } from './prisma'
-import { MistralOCRInvoice } from './mistral-ocr'
-import { Logger } from './logger'
+import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job-item'
+import { invoiceMiningJob, InvoiceMiningJob } from './invoice-mining-job'
+import { log, Logger } from './logger'
+import { createSingleton } from '../utils/create-singleton'
 
 class InvoiceMining {
-	private db: typeof prisma
-	private mistralClient: Mistral
-	private mistralOCRInvoice: MistralOCRInvoice
 	private invoiceMiningJobItem: InvoiceMiningJobItem
 	private invoiceMiningJob: InvoiceMiningJob
 	private log: Logger
@@ -16,13 +11,18 @@ class InvoiceMining {
 	private jobItemIdsQueue: string[] = []
 	private isProcessing: boolean = false
 
-	constructor({ db, mistralClient, log }: { db: typeof prisma; mistralClient: Mistral; log: Logger }) {
+	constructor({
+		log,
+		invoiceMiningJob,
+		invoiceMiningJobItem,
+	}: {
+		log: Logger
+		invoiceMiningJob: InvoiceMiningJob
+		invoiceMiningJobItem: InvoiceMiningJobItem
+	}) {
 		this.log = log
-		this.db = db
-		this.mistralClient = mistralClient
-		this.mistralOCRInvoice = new MistralOCRInvoice({ mistralClient: this.mistralClient })
-		this.invoiceMiningJobItem = new InvoiceMiningJobItem(this.db, this.mistralOCRInvoice)
-		this.invoiceMiningJob = new InvoiceMiningJob(this.db, this.invoiceMiningJobItem)
+		this.invoiceMiningJobItem = invoiceMiningJobItem
+		this.invoiceMiningJob = invoiceMiningJob
 	}
 
 	public async initJob(base64Files: string[]) {
@@ -66,15 +66,12 @@ class InvoiceMining {
 	}
 }
 
-const globalForInvoiceMining = global as unknown as { invoiceMining: InvoiceMining }
-
-const initInvoiceMining = () =>
-	new InvoiceMining({
-		log: new Logger(),
-		db: prisma,
-		mistralClient: new Mistral({ apiKey: process.env.MISTRAL_API_KEY }),
-	})
-
-export const invoiceMining = globalForInvoiceMining.invoiceMining ?? initInvoiceMining()
-
-if (process.env.NODE_ENV !== 'production') globalForInvoiceMining.invoiceMining = invoiceMining
+export const invoiceMining = createSingleton(
+	'invoiceMining',
+	() =>
+		new InvoiceMining({
+			log: log,
+			invoiceMiningJob: invoiceMiningJob,
+			invoiceMiningJobItem: invoiceMiningJobItem,
+		}),
+)

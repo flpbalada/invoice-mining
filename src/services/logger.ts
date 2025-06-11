@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { createSingleton } from '../utils/create-singleton'
+
 export class Logger {
 	public info(...args: any[]) {
 		console.log(`[INFO] ℹ️`, ...args)
@@ -12,4 +14,4 @@ export class Logger {
 	}
 }
 
-export const log = Logger
+export const log = createSingleton('log', () => new Logger())
