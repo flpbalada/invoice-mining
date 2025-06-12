@@ -45,8 +45,9 @@ export class InvoiceMiningJobItem {
 		if (error) {
 			await this.update(id, {
 				status: 'FAILED',
+				error: error.message,
 			})
-			throw new Error(`Failed to process job item with ID ${id}: ${error.message}`)
+			throw error
 		}
 
 		await this.update(id, {
@@ -55,12 +56,11 @@ export class InvoiceMiningJobItem {
 		})
 	}
 
-	public async get(id: string) {
-		const jobItem = await this.db.jobItem.findUnique({
+	public async get(id: string, select?: Prisma.JobItemSelect) {
+		return await this.db.jobItem.findFirstOrThrow({
 			where: { id },
+			select,
 		})
-		if (!jobItem) throw new Error(`Job item with ID ${id} not found`)
-		return jobItem
 	}
 
 	public async update(id: string, data: Prisma.JobItemUpdateInput) {

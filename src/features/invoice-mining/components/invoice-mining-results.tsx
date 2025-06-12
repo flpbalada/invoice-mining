@@ -70,7 +70,7 @@ async function InvoiceMiningResultsBody({ jobId }: { jobId: string }) {
 						<div className='flex items-center justify-end'>
 							<Link
 								className='btn btn-ouline'
-								href='/'
+								href={`/invoice-mining/results/${jobId}/result/${item.id}`}
 							>
 								{t('actions.open')}
 							</Link>

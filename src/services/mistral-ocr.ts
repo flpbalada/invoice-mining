@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { responseFormatFromZodObject } from '@mistralai/mistralai/extra/structChat'
 import { createSingleton } from '../utils/create-singleton'
 import { mistral } from './mistral'
+import { retry } from '../utils/retry'
 
 type Model = 'mistral-ocr-latest'
 
@@ -43,7 +44,7 @@ export class MistralOCR {
 		includeImageBase64?: boolean
 	}) {
 		const documentAnnotationFormat = responseFormatFromZodObject(this._invoiceSchema)
-		return await this.client.ocr.process({
+		const ocrProcessPromise = this.client.ocr.process({
 			model,
 			document: {
 				type: 'document_url',
@@ -52,6 +53,7 @@ export class MistralOCR {
 			documentAnnotationFormat,
 			includeImageBase64,
 		})
+		return await retry(() => ocrProcessPromise)
 	}
 
 	private _invoiceSchema = z.object({
