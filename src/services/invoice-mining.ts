@@ -3,8 +3,10 @@ import { invoiceMiningJob, InvoiceMiningJob } from './invoice-mining-job'
 import { log, Logger } from './logger'
 import { createSingleton } from '../utils/create-singleton'
 import { FileWithBase64 } from '../utils/file-with-base-64'
+import { prisma } from './prisma'
 
 class InvoiceMining {
+	private db: typeof prisma
 	private invoiceMiningJobItem: InvoiceMiningJobItem
 	private invoiceMiningJob: InvoiceMiningJob
 	private log: Logger
@@ -13,14 +15,17 @@ class InvoiceMining {
 	private isProcessing: boolean = false
 
 	constructor({
+		db,
 		log,
 		invoiceMiningJob,
 		invoiceMiningJobItem,
 	}: {
+		db: typeof prisma
 		log: Logger
 		invoiceMiningJob: InvoiceMiningJob
 		invoiceMiningJobItem: InvoiceMiningJobItem
 	}) {
+		this.db = db
 		this.log = log
 		this.invoiceMiningJobItem = invoiceMiningJobItem
 		this.invoiceMiningJob = invoiceMiningJob
@@ -65,12 +70,41 @@ class InvoiceMining {
 		this.isProcessing = false
 		this.log.info(`Finished processing job items. Processed ${iterationCount} items.`)
 	}
+
+	public async requeueAndProcessJobItems() {
+		await this.requeueFailedJobItems()
+		await this.processJobItems()
+	}
+
+	public async requeueFailedJobItems() {
+		this.log.info('Requeuing failed job items...')
+		const failedJobItems = await this.db.jobItem.findMany({
+			where: { status: 'FAILED' },
+			select: { id: true },
+		})
+
+		if (failedJobItems.length === 0) {
+			this.log.info('No failed job items to requeue.')
+			return
+		}
+
+		for (const item of failedJobItems) {
+			await this.db.jobItem.update({
+				where: { id: item.id },
+				data: { status: 'PENDING', error: null },
+			})
+			this.jobItemIdsQueue.push(item.id)
+		}
+
+		this.log.info(`Requeued ${failedJobItems.length} failed job items.`)
+	}
 }
 
 export const invoiceMining = createSingleton(
 	'invoiceMining',
 	() =>
 		new InvoiceMining({
+			db: prisma,
 			log: log,
 			invoiceMiningJob: invoiceMiningJob,
 			invoiceMiningJobItem: invoiceMiningJobItem,
