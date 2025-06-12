@@ -1,8 +1,14 @@
-import { ReactNode } from 'react'
+import { ReactNode, ElementType } from 'react'
 import clsx from 'clsx'
 
-export function Box({ children, className }: { children: ReactNode; className?: string }) {
+interface BoxProps {
+	children: ReactNode
+	className?: string
+	as?: ElementType
+}
+
+export function Box({ children, className, as: Component = 'div' }: BoxProps) {
 	return (
-		<div className={clsx('max-w-xl space-y-6 rounded-lg bg-white p-4 shadow-lg md:p-8', className)}>{children}</div>
+		<Component className={clsx('bg-whiteshadow-lg max-w-xl space-y-6 rounded-lg', className)}>{children}</Component>
 	)
 }

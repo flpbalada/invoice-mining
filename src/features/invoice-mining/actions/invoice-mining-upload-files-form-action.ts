@@ -7,7 +7,12 @@ import { validateFiles } from '../utils/validate-files'
 export async function invoiceMiningUploadFilesFormAction(_prev: string, formData: FormData) {
 	const filesOriginal = formData.getAll('files') as File[]
 	const files = validateFiles(filesOriginal)
-	const base64Files = await Promise.all(files.map(async file => await getFileBase64(file)))
-	const jobId = invoiceMining.initJob(base64Files)
+	const filesWithBase64 = await Promise.all(
+		files.map(async file => ({
+			name: file.name,
+			base64: await getFileBase64(file),
+		})),
+	)
+	const jobId = invoiceMining.initJob(filesWithBase64)
 	return jobId
 }

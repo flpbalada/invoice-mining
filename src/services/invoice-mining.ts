@@ -2,6 +2,7 @@ import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job
 import { invoiceMiningJob, InvoiceMiningJob } from './invoice-mining-job'
 import { log, Logger } from './logger'
 import { createSingleton } from '../utils/create-singleton'
+import { FileWithBase64 } from '../utils/file-with-base-64'
 
 class InvoiceMining {
 	private invoiceMiningJobItem: InvoiceMiningJobItem
@@ -25,9 +26,9 @@ class InvoiceMining {
 		this.invoiceMiningJob = invoiceMiningJob
 	}
 
-	public async initJob(base64Files: string[]) {
-		this.log.info(`Starting invoice mining job with ${base64Files.length} files.`)
-		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(base64Files)
+	public async initJob(filesWithBase64: FileWithBase64[]) {
+		this.log.info(`Starting invoice mining job with ${filesWithBase64.length} files.`)
+		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(filesWithBase64)
 		jobItemIds.forEach(id => this.jobItemIdsQueue.push(id))
 		this.log.info(`Job initiated with ID: ${jobId} and ${jobItemIds.length} items.`)
 		return jobId

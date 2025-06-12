@@ -4,8 +4,10 @@ import { useActionState } from 'react'
 import Link from 'next/link'
 import { FaCheck } from 'react-icons/fa6'
 import { invoiceMiningUploadFilesFormAction } from '../actions/invoice-mining-upload-files-form-action'
+import { useTranslations } from 'next-intl'
 
 export function InvoiceMiningUploadFilesForm() {
+	const t = useTranslations('InvoiceMiningUploadFilesForm')
 	const [state, formAction, pending] = useActionState(invoiceMiningUploadFilesFormAction, '')
 
 	return (
@@ -18,7 +20,7 @@ export function InvoiceMiningUploadFilesForm() {
 					htmlFor='files'
 					className='mb-2 block text-sm font-medium text-slate-700'
 				>
-					Vyberte faktury (PDF nebo obrázky):
+					{t('inputFile.label')}
 				</label>
 				<input
 					id='files'
@@ -33,10 +35,7 @@ export function InvoiceMiningUploadFilesForm() {
 			{state.length > 0 && (
 				<div className='alert alert-success alert-soft'>
 					<FaCheck />
-					<span>
-						Faktury byly přidány do fronty a vytěžování dat do tabulky právě probíhá. Výsledky budou k
-						dispozici nejdéle do pár minut.
-					</span>
+					<span>{t('successBox.message')}</span>
 				</div>
 			)}
 			{state.length === 0 ? (
@@ -44,7 +43,7 @@ export function InvoiceMiningUploadFilesForm() {
 					className='btn btn-primary'
 					disabled={state.length > 0 || pending}
 				>
-					odeslat
+					{t('submit')}
 				</button>
 			) : (
 				<Link
@@ -52,7 +51,7 @@ export function InvoiceMiningUploadFilesForm() {
 					type='submit'
 					className='btn btn-success'
 				>
-					Přejít na výsledky
+					{t('viewResults')}
 				</Link>
 			)}
 		</form>

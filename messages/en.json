@@ -17,5 +17,41 @@
 		"goToHomepage": "Go to Homepage",
 		"contactSupport": "If you need further assistance, please contact us at:",
 		"contactEmail": "support@example.com"
+	},
+	"InvoiceMiningHero": {
+		"title": "Invoice Data Extraction",
+		"description": "Upload your invoices in PDF format or as images (e.g., JPG, PNG). The system will automatically extract the necessary data and display it in a clear table. You can then easily upload the extracted data to your accounting systems or use it for various analyses."
+	},
+	"InvoiceMiningUploadFilesForm": {
+		"inputFile": {
+			"label": "Select invoices (PDF or images):"
+		},
+		"successBox": {
+			"message": "Invoices have been added to the queue and data extraction to the table is in progress. Results will be available within a few minutes at most."
+		},
+		"submit": "Submit",
+		"viewResults": "View results"
+	},
+	"InvoiceMiningResults": {
+		"title": "Invoice Mining Results from {date}",
+		"columns": {
+			"name": "Name",
+			"type": "Type",
+			"status": "Status",
+			"created": "Created",
+			"updated": "Updated"
+		},
+		"actions": {
+			"open": "Open"
+		},
+		"status": {
+			"completed": "completed",
+			"pending": "pending",
+			"inProgress": "in progress",
+			"failed": "failed"
+		},
+		"type": {
+			"invoice": "invoice"
+		}
 	}
 }

@@ -3,6 +3,7 @@ import { mistralOCR, MistralOCR } from './mistral-ocr'
 import { prisma } from './prisma'
 import { catchError } from '../utils/catch-error'
 import { createSingleton } from '../utils/create-singleton'
+import { FileWithBase64 } from '../utils/file-with-base-64'
 
 export class InvoiceMiningJobItem {
 	private db: typeof prisma
@@ -13,11 +14,12 @@ export class InvoiceMiningJobItem {
 		this.mistralOCR = mistralOCR
 	}
 
-	public async add(jobId: string, base64File: string) {
+	public async add(jobId: string, fileWithBase64: FileWithBase64) {
 		const { id } = await this.db.jobItem.create({
 			data: {
 				jobId,
-				fileBase64: base64File,
+				name: fileWithBase64.name,
+				fileBase64: fileWithBase64.base64,
 				data: {},
 				status: 'PENDING',
 			},
