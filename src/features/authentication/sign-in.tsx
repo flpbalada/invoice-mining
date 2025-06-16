@@ -25,7 +25,7 @@ async function SignInBody() {
 			<Box className='mx-auto'>
 				<div>
 					<h1>{t('title')}</h1>
-					<p>{t('subtitle')}</p>
+					<p>{t('description')}</p>
 				</div>
 				<SignInForm />
 			</Box>
@@ -34,7 +34,7 @@ async function SignInBody() {
 }
 
 function SignInForm() {
-	const t = useTranslations('SignIn.SignInForm')
+	const t = useTranslations('SignInForm')
 	return (
 		<form
 			action={async formData => {
@@ -46,7 +46,7 @@ function SignInForm() {
 			<Input
 				type='text'
 				name='email'
-				placeholder='Email'
+				placeholder={t('email.placeholder')}
 				className='input'
 			/>
 			<Button

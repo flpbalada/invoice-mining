@@ -1,0 +1,68 @@
+{
+	"GlobalErrorHandler": {
+		"error": "Došlo k neočekávané chybě. Zkuste to prosím později."
+	},
+	"Footer": {
+		"brand": "© {year} Název Vaší Společnosti. Všechna práva vyhrazena."
+	},
+	"useGetNavbarUserMenuLinks": {
+		"signOut": "Odhlásit se",
+		"signIn": "Přihlásit se"
+	},
+	"Error": {
+		"title": "Něco se pokazilo!",
+		"description": "Omlouváme se, ale došlo k neočekávané chybě.",
+		"suggestion": "Zkuste to prosím znovu nebo kontaktujte podporu, pokud problém přetrvává.",
+		"tryAgain": "Zkusit znovu",
+		"goToHomepage": "Přejít na domovskou stránku",
+		"contactSupport": "Pokud potřebujete další pomoc, kontaktujte nás na:",
+		"contactEmail": "podpora@example.com"
+	},
+	"SignIn": {
+		"title": "Přihlášení",
+		"description": "Zadejte svou e-mailovou adresu a my vám zašleme odkaz pro bezpečné přihlášení."
+	},
+	"SignInForm": {
+		"email": {
+			"label": "E-mail",
+			"placeholder": "Zadejte svou e-mailovou adresu"
+		},
+		"submit": "Přihlásit se"
+	},
+	"InvoiceMiningHero": {
+		"title": "Extrakce dat z faktur",
+		"description": "Nahrajte své faktury ve formátu PDF nebo jako obrázky (např. JPG, PNG). Systém automaticky extrahuje potřebná data a zobrazí je v přehledné tabulce. Získaná data můžete následně snadno nahrát do svých účetních systémů nebo je využít pro různé analýzy."
+	},
+	"InvoiceMiningUploadFilesForm": {
+		"inputFile": {
+			"label": "Vyberte faktury (PDF nebo obrázky):"
+		},
+		"successBox": {
+			"message": "Faktury byly přidány do fronty a probíhá extrakce dat do tabulky. Výsledky budou k dispozici nejpozději za několik minut."
+		},
+		"submit": "Odeslat",
+		"viewResults": "Zobrazit výsledky"
+	},
+	"InvoiceMiningResults": {
+		"title": "Výsledky extrakce faktur z {date}",
+		"columns": {
+			"name": "Název",
+			"type": "Typ",
+			"status": "Stav",
+			"created": "Vytvořeno",
+			"updated": "Aktualizováno"
+		},
+		"actions": {
+			"open": "Otevřít"
+		},
+		"status": {
+			"completed": "dokončeno",
+			"pending": "čeká",
+			"inProgress": "probíhá",
+			"failed": "selhalo"
+		},
+		"type": {
+			"invoice": "faktura"
+		}
+	}
+}
