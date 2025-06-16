@@ -26,10 +26,15 @@ export class InvoiceMiningJob {
 		})
 	}
 
-	public async getJobItems(jobId: string, select: Prisma.JobItemSelect) {
+	public async getJobItems(
+		jobId: string,
+		select: Prisma.JobItemSelect,
+		orderBy?: Prisma.JobItemOrderByWithRelationInput,
+	) {
 		return await this.db.jobItem.findMany({
 			where: { jobId },
 			select,
+			orderBy: orderBy,
 		})
 	}
 

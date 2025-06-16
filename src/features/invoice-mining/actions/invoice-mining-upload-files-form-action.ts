@@ -13,6 +13,7 @@ export async function invoiceMiningUploadFilesFormAction(_prev: string, formData
 			base64: await getFileBase64(file),
 		})),
 	)
-	const jobId = invoiceMining.initJob(filesWithBase64)
+	const jobId = await invoiceMining.initJob(filesWithBase64)
+	invoiceMining.requeueAndProcessJobItems()
 	return jobId
 }

@@ -10,6 +10,8 @@ export function InvoiceMiningUploadFilesForm() {
 	const t = useTranslations('InvoiceMiningUploadFilesForm')
 	const [state, formAction, pending] = useActionState(invoiceMiningUploadFilesFormAction, '')
 
+	const shouldSubmitBeDisabled = state.length > 0 || pending
+
 	return (
 		<form
 			className='my-2 flex w-full max-w-md flex-col gap-4 rounded-lg bg-white p-6 shadow-md'
@@ -41,8 +43,9 @@ export function InvoiceMiningUploadFilesForm() {
 			{state.length === 0 ? (
 				<button
 					className='btn btn-primary'
-					disabled={state.length > 0 || pending}
+					disabled={shouldSubmitBeDisabled}
 				>
+					{shouldSubmitBeDisabled && <span className='loading loading-spinner loading-sm'></span>}
 					{t('submit')}
 				</button>
 			) : (
