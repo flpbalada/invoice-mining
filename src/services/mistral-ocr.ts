@@ -18,7 +18,7 @@ export class MistralOCR {
 		return await this._getDocumentInJSON(documentUrl)
 	}
 
-	public async getInvoiceSchema() {
+	public getInvoiceSchema() {
 		return this._invoiceSchema
 	}
 
