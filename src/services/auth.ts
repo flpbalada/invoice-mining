@@ -8,7 +8,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	providers: [
 		Resend({
 			apiKey: process.env.AUTH_RESEND_KEY,
-			from: 'no-reply@impactshelf.com',
+			from: 'prihlaseni@vytezeno.cz',
 			async sendVerificationRequest(params) {
 				const { identifier: to, provider, url } = params
 				const { host } = new URL(url)
@@ -35,19 +35,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 function html({ url, host }: { url: string; host: string }) {
 	return `
-		<div style="font-family: Arial, sans-serif; line-height:1.6; color:#222;">
-			<h2>Sign in to ${host} 🌀⚡️</h2>
-			<p>Click the button below to sign in to ${host} 👇</p>
-			<p>
-				<a href="${url}" style="display:inline-block;padding:10px 20px;background:#2563eb;color:#fff;text-decoration:none;border-radius:4px;">
-					Sign in
-				</a>
-			</p>
-			<p>If the button doesn't work, copy and paste this link into your browser:</p>
-			<p><a href="${url}">${url}</a></p>
-			<hr />
-			<p style="font-size:12px;color:#888;">If you did not request this email, you can safely ignore it.</p>
-		</div>
+<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #ddd; border-radius: 8px; background-color: #fafafa;">
+  <h2 style="color: #000000; margin-bottom: 16px;">Vítejte na <strong>${host}</strong></h2>
+  <p style="margin-bottom: 20px;">Obdrželi jsme žádost o přihlášení k vašemu účtu. Pokračujte kliknutím na tlačítko níže:</p>
+  <p style="margin-bottom: 24px;">
+    <a href="${url}" style="display: inline-block; padding: 14px 28px; background-color: #000000; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">Přihlásit se</a>
+  </p>
+  <p style="font-size: 14px; color: #888; margin-bottom: 24px;">Pokud jste o přihlášení nežádali, tento e-mail můžete ignorovat.</p>
+  <hr style="border: none; border-top: 1px solid #ddd; margin: 24px 0;" />
+  <p style="font-size: 13px; color: #666;">
+    Raději odkaz zkopírujete a vložíte ručně? Tady je:
+    <br />
+    <a href="${url}" style="color: #000000; word-break: break-all;">${url}</a>
+  </p>
+</div>
 	`
 }
 
