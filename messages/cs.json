@@ -3,7 +3,7 @@
 		"error": "Došlo k neočekávané chybě. Zkuste to prosím později."
 	},
 	"Footer": {
-		"brand": "© {year} Název Vaší Společnosti. Všechna práva vyhrazena."
+		"brand": "© {year} Všechna práva vyhrazena."
 	},
 	"useGetNavbarUserMenuLinks": {
 		"signOut": "Odhlásit se",
