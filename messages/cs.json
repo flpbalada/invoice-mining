@@ -64,5 +64,37 @@
 		"type": {
 			"invoice": "faktura"
 		}
+	},
+	"InvoiceMiningResult": {
+		"extractedData": {
+			"title": "Vytěžené údaje",
+			"tabs": {
+				"invoice": "Faktura",
+				"supplier": "Dodavatel"
+			}
+		}
+	},
+	"InvoiceMiningResultForm": {
+		"name": "Název",
+		"address": "Adresa",
+		"zipCode": "PSČ",
+		"city": "Město",
+		"country": "Země",
+		"email": "E-mail",
+		"phone": "Telefon",
+		"inNumber": "IČ",
+		"tinNumber": "DIČ",
+		"website": "Webová stránka",
+		"invoiceNumber": "Číslo faktury",
+		"createdAt": "Datum vystavení",
+		"dueDate": "Datum splatnosti",
+		"currency": "Měna",
+		"totalAmount": "Celková částka",
+		"taxes": "Daň",
+		"referenceNumber": "Variabilní symbol",
+		"bankAccount": "Bankovní účet",
+		"bankAccountNumber": "Číslo bank. účtu",
+		"bankName": "Název banky",
+		"totalAmountToBePaid": "Celková částka k úhradě"
 	}
 }
