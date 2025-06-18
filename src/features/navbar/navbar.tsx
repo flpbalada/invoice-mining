@@ -22,7 +22,7 @@ export async function NavbarBody() {
 					className='font-serif text-base font-semibold text-slate-900'
 					title='stomping a trick = landing it clean'
 				>
-					<Link href='/'>Vytěženo.cz</Link>
+					<Link href='/'>Vytěženo.cz (beta)</Link>
 				</div>
 				<div>
 					<NavbarUserMenu isUserSignedIn={isUserSignedIn} />
