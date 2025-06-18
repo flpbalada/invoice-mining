@@ -101,19 +101,21 @@ export function InvoiceMiningResultsList({ initialJobItems, jobId }: InvoiceMini
 				</>
 			)}
 			Container={({ children }) => (
-				<div className='grid w-full grid-cols-6 gap-2 rounded-lg bg-white p-4 text-sm shadow-md'>
-					{[
-						t('columns.name'),
-						t('columns.type'),
-						t('columns.status'),
-						t('columns.created'),
-						t('columns.updated'),
-						'',
-					].map((header, idx) => (
-						<div key={idx}>{header}</div>
-					))}
-					<div className='col-span-6 border-b border-b-gray-200'></div>
-					{children}
+				<div className='w-full overflow-x-auto rounded-lg bg-white p-4 shadow-md'>
+					<div className='grid w-full min-w-4xl grid-cols-6 gap-2 text-sm'>
+						{[
+							t('columns.name'),
+							t('columns.type'),
+							t('columns.status'),
+							t('columns.created'),
+							t('columns.updated'),
+							'',
+						].map((header, idx) => (
+							<div key={idx}>{header}</div>
+						))}
+						<div className='col-span-6 border-b border-b-gray-200' />
+						{children}
+					</div>
 				</div>
 			)}
 		/>

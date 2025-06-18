@@ -28,7 +28,7 @@ export default async function RootLayout({
 					<GlobalErrorHandler />
 					<div className='flex min-h-screen flex-col justify-between'>
 						<Navbar />
-						<div>{children}</div>
+						<div className='flex-1 p-4'>{children}</div>
 						<Footer />
 					</div>
 					<Toaster />
