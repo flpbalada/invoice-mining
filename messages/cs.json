@@ -70,7 +70,8 @@
 			"title": "Vytěžené údaje",
 			"tabs": {
 				"invoice": "Faktura",
-				"supplier": "Dodavatel"
+				"supplier": "Dodavatel",
+				"items": "Položky"
 			}
 		}
 	},
@@ -95,6 +96,10 @@
 		"bankAccount": "Bankovní účet",
 		"bankAccountNumber": "Číslo bank. účtu",
 		"bankName": "Název banky",
-		"totalAmountToBePaid": "Celková částka k úhradě"
+		"totalAmountToBePaid": "Celková částka k úhradě",
+		"description": "Popis",
+		"quantity": "Množství",
+		"unitPrice": "Cena za jednotku",
+		"totalPrice": "Celková cena"
 	}
 }

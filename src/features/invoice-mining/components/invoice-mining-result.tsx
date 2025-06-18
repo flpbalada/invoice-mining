@@ -39,6 +39,13 @@ async function InvoiceMiningResultBody({ jobItemId }: InvoiceMiningResultProps) 
 		value,
 	}))
 
+	const itemsFormFields = parsedData.items.map(item =>
+		typedEntries(item).map(([key, value]) => ({
+			key,
+			value,
+		})),
+	)
+
 	return (
 		<div className='grid w-full grid-cols-12 gap-4'>
 			<div className='mg-white col-span-4 space-y-4 rounded bg-white p-4 shadow'>
@@ -51,13 +58,26 @@ async function InvoiceMiningResultBody({ jobItemId }: InvoiceMiningResultProps) 
 						<Tab className='tab data-hover:tab-active data-selected:tab-active'>
 							{t('extractedData.tabs.supplier')}
 						</Tab>
+						<Tab className='tab data-hover:tab-active data-selected:tab-active'>
+							{t('extractedData.tabs.items')}
+						</Tab>
 					</TabList>
 					<TabPanels>
-						<TabPanel>
+						<TabPanel className='my-2 rounded border border-gray-100 p-2'>
 							<InvoiceMiningResultForm fields={invoiceFormFields} />
 						</TabPanel>
-						<TabPanel>
+						<TabPanel className='my-2 rounded border border-gray-100 p-2'>
 							<InvoiceMiningResultForm fields={supplierFormFields} />
+						</TabPanel>
+						<TabPanel>
+							{itemsFormFields.map((item, key) => (
+								<div
+									className='my-2 rounded border border-gray-100 p-2'
+									key={key}
+								>
+									<InvoiceMiningResultForm fields={item} />
+								</div>
+							))}
 						</TabPanel>
 					</TabPanels>
 				</TabGroup>
