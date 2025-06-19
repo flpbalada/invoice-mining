@@ -62,7 +62,7 @@ function useGetNavbarUserMenuLinks(isUser: boolean): NavbarUserMenuItem[] {
 	return [
 		{
 			id: 'sign-in',
-			children: () => <a href='/sign-in'>{t('signIn')}</a>,
+			children: () => <a href='/auth/sign-in'>{t('signIn')}</a>,
 		},
 	]
 }

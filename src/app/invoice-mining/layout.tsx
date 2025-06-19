@@ -10,7 +10,7 @@ export default async function InvoiceMiningLayout({ children }: InvoiceMiningLay
 	const isUserSignedIn = !!session?.user
 
 	if (!isUserSignedIn) {
-		redirect('/sign-in')
+		redirect('/auth/sign-in')
 	}
 
 	return <div>{children}</div>

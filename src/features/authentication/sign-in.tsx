@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { AuthContainer } from './auth-container'
 
 export function SignIn() {
 	return (
@@ -21,7 +22,7 @@ async function SignInBody() {
 	if (session) redirect('/') // User is already signed in
 
 	return (
-		<div className='container mx-auto p-4'>
+		<AuthContainer>
 			<Box className='mx-auto'>
 				<div>
 					<h1>{t('title')}</h1>
@@ -29,7 +30,7 @@ async function SignInBody() {
 				</div>
 				<SignInForm />
 			</Box>
-		</div>
+		</AuthContainer>
 	)
 }
 
@@ -41,14 +42,16 @@ function SignInForm() {
 				'use server'
 				await signIn('resend', formData)
 			}}
-			className='flex gap-4'
+			className='flex flex-col gap-4 sm:flex-row'
 		>
-			<Input
-				type='text'
-				name='email'
-				placeholder={t('email.placeholder')}
-				className='input'
-			/>
+			<div className='flex-1'>
+				<Input
+					type='text'
+					name='email'
+					placeholder={t('email.placeholder')}
+					className='input w-full'
+				/>
+			</div>
 			<Button
 				type='submit'
 				className='btn btn-primary'

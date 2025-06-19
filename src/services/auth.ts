@@ -5,6 +5,10 @@ import Resend from 'next-auth/providers/resend'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	adapter: PrismaAdapter(prisma),
+	pages: {
+		signIn: '/auth/sign-in',
+		verifyRequest: '/auth/verify-request',
+	},
 	providers: [
 		Resend({
 			apiKey: process.env.AUTH_RESEND_KEY,

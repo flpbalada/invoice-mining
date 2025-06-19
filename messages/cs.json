@@ -22,6 +22,11 @@
 		"title": "Přihlášení",
 		"description": "Zadejte svou e-mailovou adresu a my vám zašleme odkaz pro bezpečné přihlášení."
 	},
+	"VerifyRequest": {
+		"title": "Zkontrolujte si e-mail",
+		"description": "Na váš e-mail jsme vám zaslali odkaz pro ověření. Po kliknutí na odkaz se vrátíte zpět již přihlášení.",
+		"postfix": "Pokud jste e-mail neobdrželi, zkontrolujte prosím složku se spamem nebo zkuste znovu."
+	},
 	"SignInForm": {
 		"email": {
 			"label": "E-mail",
