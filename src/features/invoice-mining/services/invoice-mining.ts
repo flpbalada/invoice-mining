@@ -1,9 +1,9 @@
 import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job-item'
 import { invoiceMiningJob, InvoiceMiningJob } from './invoice-mining-job'
-import { log, Logger } from './logger'
-import { createSingleton } from '../utils/create-singleton'
-import { prisma } from './prisma'
-import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
+import { log, Logger } from '../../../services/logger'
+import { createSingleton } from '../../../utils/create-singleton'
+import { prisma } from '../../../services/prisma'
+import { FileWithFileURL } from '../utils/file-with-file-url'
 
 class InvoiceMining {
 	private db: typeof prisma

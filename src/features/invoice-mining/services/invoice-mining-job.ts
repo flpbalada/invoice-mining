@@ -1,8 +1,8 @@
 import { prisma } from '@/services/prisma'
 import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job-item'
-import { createSingleton } from '../utils/create-singleton'
+import { createSingleton } from '../../../utils/create-singleton'
 import { Prisma } from '@prisma/client'
-import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
+import { FileWithFileURL } from '../utils/file-with-file-url'
 
 export class InvoiceMiningJob {
 	private db: typeof prisma

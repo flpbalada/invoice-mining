@@ -1,6 +1,6 @@
 'use server'
 
-import { invoiceMining } from '@/services/invoice-mining'
+import { invoiceMining } from '@/features/invoice-mining/services/invoice-mining'
 import { validateFiles } from '../utils/validate-files'
 import { auth } from '@/services/auth'
 import { s3 } from '@/services/s3'

@@ -1,4 +1,4 @@
-import { invoiceMining } from '@/services/invoice-mining'
+import { invoiceMining } from '@/features/invoice-mining/services/invoice-mining'
 
 export function GET() {
 	const isProcessing = invoiceMining.getIsProcessing()

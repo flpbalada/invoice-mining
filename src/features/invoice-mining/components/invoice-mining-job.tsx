@@ -1,4 +1,4 @@
-import { invoiceMiningJobItem } from '@/services/invoice-mining-job-item'
+import { invoiceMiningJobItem } from '@/features/invoice-mining/services/invoice-mining-job-item'
 import { mistralOCR } from '@/services/mistral-ocr'
 import { Suspense } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'

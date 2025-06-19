@@ -1,6 +1,6 @@
 'use server'
 
-import { invoiceMiningJob } from '@/services/invoice-mining-job'
+import { invoiceMiningJob } from '@/features/invoice-mining/services/invoice-mining-job'
 
 export async function invoiceMiningGetJobItemsAction(jobId: string) {
 	return await invoiceMiningJob.getJobItems(

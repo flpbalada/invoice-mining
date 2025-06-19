@@ -1,4 +1,4 @@
-import { invoiceMiningJob } from '@/services/invoice-mining-job'
+import { invoiceMiningJob } from '@/features/invoice-mining/services/invoice-mining-job'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
 import { invoiceMiningGetJobItemsAction } from '../actions/invoice-mining-get-job-items-action'

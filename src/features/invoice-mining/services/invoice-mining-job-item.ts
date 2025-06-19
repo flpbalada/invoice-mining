@@ -1,10 +1,10 @@
 import { Prisma } from '@prisma/client'
-import { mistralOCR, MistralOCR } from './mistral-ocr'
-import { prisma } from './prisma'
-import { catchError } from '../utils/catch-error'
-import { createSingleton } from '../utils/create-singleton'
-import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
-import { s3, Storage } from './s3'
+import { mistralOCR, MistralOCR } from '../../../services/mistral-ocr'
+import { prisma } from '../../../services/prisma'
+import { catchError } from '../../../utils/catch-error'
+import { createSingleton } from '../../../utils/create-singleton'
+import { FileWithFileURL } from '../utils/file-with-file-url'
+import { s3, Storage } from '../../../services/s3'
 
 export class InvoiceMiningJobItem {
 	private db: typeof prisma
