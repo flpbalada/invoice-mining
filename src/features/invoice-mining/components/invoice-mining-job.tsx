@@ -1,5 +1,5 @@
 import { invoiceMiningJobItem } from '@/features/invoice-mining/services/invoice-mining-job-item'
-import { invoiceOCR } from '@/features/invoice-mining/services/mistral-ocr'
+import { invoiceOCR } from '@/features/invoice-mining/services/invoice-ocr'
 import { Suspense } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { getTranslations } from 'next-intl/server'

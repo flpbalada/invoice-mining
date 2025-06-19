@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { invoiceOCR, InvoiceOCR } from './mistral-ocr'
+import { invoiceOCR, InvoiceOCR } from './invoice-ocr'
 import { prisma } from '../../../services/prisma'
 import { catchError } from '../../../utils/catch-error'
 import { createSingleton } from '../../../utils/create-singleton'
