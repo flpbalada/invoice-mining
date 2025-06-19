@@ -6,29 +6,29 @@ import { isNumber } from '../../../utils/is-number'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 
-type InvoiceMiningResultFormFieldKey = string
+type InvoiceMiningJobFormFieldKey = string
 
-type InvoiceMiningResultFormFieldValue = string | number | Date | undefined
+type InvoiceMiningJobFormFieldValue = string | number | Date | undefined
 
-type InvoiceMiningResultFormField = {
-	key: InvoiceMiningResultFormFieldKey
-	value: InvoiceMiningResultFormFieldValue
+type InvoiceMiningJobFormField = {
+	key: InvoiceMiningJobFormFieldKey
+	value: InvoiceMiningJobFormFieldValue
 }
 
-type InvoiceMiningResultFormProps = {
-	fields: InvoiceMiningResultFormField[]
+type InvoiceMiningJobFormProps = {
+	fields: InvoiceMiningJobFormField[]
 }
 
-export function InvoiceMiningResultForm({ fields }: InvoiceMiningResultFormProps) {
-	const t = useTranslations('InvoiceMiningResultForm')
-	const getInputType = (value: InvoiceMiningResultFormFieldValue): string => {
+export function InvoiceMiningJobForm({ fields }: InvoiceMiningJobFormProps) {
+	const t = useTranslations('InvoiceMiningJobForm')
+	const getInputType = (value: InvoiceMiningJobFormFieldValue): string => {
 		if (isNumber(value)) return 'number'
 		if (isDate(value)) return 'date'
 		return 'text'
 	}
 
 	const translateKey = useCallback(
-		(key: InvoiceMiningResultFormFieldKey): string => {
+		(key: InvoiceMiningJobFormFieldKey): string => {
 			return t(toCamelCase(key))
 		},
 		[t],

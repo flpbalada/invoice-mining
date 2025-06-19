@@ -1,23 +1,23 @@
 import { invoiceMiningJob } from '@/services/invoice-mining-job'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
-import { InvoiceMiningResultsList } from './invoice-mining-results-list.client'
 import { invoiceMiningGetJobItemsAction } from '../actions/invoice-mining-get-job-items-action'
+import { InvoiceMiningJobsList } from './invoice-mining-jobs-list.client'
 
-type InvoiceMiningResultsProps = {
+type InvoiceMiningJobsProps = {
 	jobId: string
 }
 
-export function InvoiceMiningResults(props: InvoiceMiningResultsProps) {
+export function InvoiceMiningJobs(props: InvoiceMiningJobsProps) {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<InvoiceMiningResultsBody {...props} />
+			<InvoiceMiningJobsBody {...props} />
 		</Suspense>
 	)
 }
 
-async function InvoiceMiningResultsBody({ jobId }: { jobId: string }) {
-	const t = await getTranslations('InvoiceMiningResults')
+async function InvoiceMiningJobsBody({ jobId }: { jobId: string }) {
+	const t = await getTranslations('InvoiceMiningJobs')
 	const format = await getFormatter()
 
 	const job = await invoiceMiningJob.getJob(jobId, {
@@ -36,7 +36,7 @@ async function InvoiceMiningResultsBody({ jobId }: { jobId: string }) {
 			<div className='w-full'>
 				<h1 className='mb-4 text-base'>{t('title', { date: jobCreateAtFormatted })}</h1>
 			</div>
-			<InvoiceMiningResultsList
+			<InvoiceMiningJobsList
 				initialJobItems={jobItems.map(item => ({
 					id: item.id,
 					name: item.name,

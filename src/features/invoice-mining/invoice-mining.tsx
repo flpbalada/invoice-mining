@@ -1,40 +1,40 @@
 import { InvoiceMiningContainer } from './components/invoice-mining-container'
 import { InvoiceMiningHero } from './components/invoice-mining-hero'
-import { InvoiceMiningResult } from './components/invoice-mining-result'
-import { InvoiceMiningResults } from './components/invoice-mining-results'
+import { InvoiceMiningJobs } from './components/invoice-mining-jobs'
+import { InvoiceMiningJob } from './components/invoice-mining-job'
 import { InvoiceMiningUploadFilesForm } from './components/invoice-mining-upload-files-form'
 
 type UploadStepProps = {
 	step: 'upload'
 }
 
-type ResultsStepProps = {
-	step: 'results'
+type JobsStepProps = {
+	step: 'jobs'
 	jobId: string
 }
 
-type ResultStepProps = {
-	step: 'result'
+type JobStepProps = {
+	step: 'job'
 	jobItemId: string
 }
 
-type InvoiceMiningProps = UploadStepProps | ResultsStepProps | ResultStepProps
+type InvoiceMiningProps = UploadStepProps | JobsStepProps | JobStepProps
 
 export function InvoiceMining(props: InvoiceMiningProps) {
 	const { step } = props
 
-	if (step === 'results') {
+	if (step === 'jobs') {
 		return (
 			<InvoiceMiningContainer>
-				<InvoiceMiningResults jobId={props.jobId} />
+				<InvoiceMiningJobs jobId={props.jobId} />
 			</InvoiceMiningContainer>
 		)
 	}
 
-	if (step === 'result') {
+	if (step === 'job') {
 		return (
 			<InvoiceMiningContainer>
-				<InvoiceMiningResult jobItemId={props.jobItemId} />
+				<InvoiceMiningJob jobItemId={props.jobItemId} />
 			</InvoiceMiningContainer>
 		)
 	}

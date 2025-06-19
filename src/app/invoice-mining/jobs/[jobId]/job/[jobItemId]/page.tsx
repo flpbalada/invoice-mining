@@ -4,7 +4,7 @@ export default async function Page({ params }: { params: Promise<{ jobItemId: st
 	const { jobItemId } = await params
 	return (
 		<InvoiceMining
-			step='result'
+			step='job'
 			jobItemId={jobItemId}
 		/>
 	)

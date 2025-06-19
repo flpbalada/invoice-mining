@@ -1,24 +1,24 @@
 import { invoiceMiningJobItem } from '@/services/invoice-mining-job-item'
 import { mistralOCR } from '@/services/mistral-ocr'
 import { Suspense } from 'react'
-import { InvoiceMiningResultForm } from './invoice-mining-result-form'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { getTranslations } from 'next-intl/server'
+import { InvoiceMiningJobForm } from './invoice-mining-job-form'
 
-type InvoiceMiningResultProps = {
+type InvoiceMiningJobProps = {
 	jobItemId: string
 }
 
-export function InvoiceMiningResult(props: InvoiceMiningResultProps) {
+export function InvoiceMiningJob(props: InvoiceMiningJobProps) {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<InvoiceMiningResultBody {...props} />
+			<InvoiceMiningJobBody {...props} />
 		</Suspense>
 	)
 }
 
-async function InvoiceMiningResultBody({ jobItemId }: InvoiceMiningResultProps) {
-	const t = await getTranslations('InvoiceMiningResult')
+async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
+	const t = await getTranslations('InvoiceMiningJob')
 
 	const { data, fileBase64 } = await invoiceMiningJobItem.get(jobItemId, {
 		id: true,
@@ -64,10 +64,10 @@ async function InvoiceMiningResultBody({ jobItemId }: InvoiceMiningResultProps) 
 					</TabList>
 					<TabPanels>
 						<TabPanel className='my-2 rounded border border-gray-100 p-2'>
-							<InvoiceMiningResultForm fields={invoiceFormFields} />
+							<InvoiceMiningJobForm fields={invoiceFormFields} />
 						</TabPanel>
 						<TabPanel className='my-2 rounded border border-gray-100 p-2'>
-							<InvoiceMiningResultForm fields={supplierFormFields} />
+							<InvoiceMiningJobForm fields={supplierFormFields} />
 						</TabPanel>
 						<TabPanel>
 							{itemsFormFields.map((item, key) => (
@@ -75,7 +75,7 @@ async function InvoiceMiningResultBody({ jobItemId }: InvoiceMiningResultProps) 
 									className='my-2 rounded border border-gray-100 p-2'
 									key={key}
 								>
-									<InvoiceMiningResultForm fields={item} />
+									<InvoiceMiningJobForm fields={item} />
 								</div>
 							))}
 						</TabPanel>

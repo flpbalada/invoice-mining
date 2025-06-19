@@ -19,13 +19,13 @@ type JobItem = {
 	updatedAt: Date
 }
 
-type InvoiceMiningResultsListProps = {
+type InvoiceMiningJobsListProps = {
 	initialJobItems: JobItem[]
 	jobId: string
 }
 
-export function InvoiceMiningResultsList({ initialJobItems, jobId }: InvoiceMiningResultsListProps) {
-	const t = useTranslations('InvoiceMiningResults')
+export function InvoiceMiningJobsList({ initialJobItems, jobId }: InvoiceMiningJobsListProps) {
+	const t = useTranslations('InvoiceMiningJobs')
 	const [jobItems, setJobItems] = useState<JobItem[]>(initialJobItems)
 
 	const { push } = useRouter()
@@ -62,7 +62,7 @@ export function InvoiceMiningResultsList({ initialJobItems, jobId }: InvoiceMini
 
 	const handleJobItemClick = useCallback(
 		(jobItemId: string) => {
-			const url = `/invoice-mining/results/${jobId}/result/${jobItemId}`
+			const url = `/invoice-mining/jobs/${jobId}/job/${jobItemId}`
 			push(url)
 		},
 		[jobId, push],
@@ -123,7 +123,7 @@ export function InvoiceMiningResultsList({ initialJobItems, jobId }: InvoiceMini
 }
 
 function StatusBadge({ status }: { status: $Enums.JobItemStatus }) {
-	const t = useTranslations('InvoiceMiningResults')
+	const t = useTranslations('InvoiceMiningJobs')
 
 	const mapTypeToTranslationKey: Record<$Enums.JobItemStatus, string> = {
 		COMPLETED: 'completed',
@@ -150,7 +150,7 @@ function StatusBadge({ status }: { status: $Enums.JobItemStatus }) {
 }
 
 function InvoiceTypeBadge({ type }: { type: $Enums.JobItemType }) {
-	const t = useTranslations('InvoiceMiningResults')
+	const t = useTranslations('InvoiceMiningJobs')
 
 	return <span className='badge badge-info badge-soft'>{t(`type.${type.toLocaleLowerCase()}`)}</span>
 }

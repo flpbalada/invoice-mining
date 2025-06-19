@@ -58,7 +58,7 @@ function InvoiceMiningUploadFilesFormSuccess({ jobId }: { jobId: string }) {
 				<span>{t('successBox.message')}</span>
 			</div>
 			<Link
-				href={`/invoice-mining/results/${jobId}`}
+				href={`/invoice-mining/jobs/${jobId}`}
 				type='submit'
 				className='btn btn-success'
 			>

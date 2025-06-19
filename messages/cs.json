@@ -43,7 +43,7 @@
 		"submit": "Odeslat",
 		"viewResults": "Zobrazit výsledky"
 	},
-	"InvoiceMiningResults": {
+	"InvoiceMiningJobs": {
 		"title": "Výsledky extrakce faktur z {date}",
 		"columns": {
 			"name": "Název",
@@ -65,7 +65,7 @@
 			"invoice": "faktura"
 		}
 	},
-	"InvoiceMiningResult": {
+	"InvoiceMiningJob": {
 		"extractedData": {
 			"title": "Vytěžené údaje",
 			"tabs": {
@@ -75,7 +75,7 @@
 			}
 		}
 	},
-	"InvoiceMiningResultForm": {
+	"InvoiceMiningJobForm": {
 		"name": "Název",
 		"address": "Adresa",
 		"zipCode": "PSČ",
