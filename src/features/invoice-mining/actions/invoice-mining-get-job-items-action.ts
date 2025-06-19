@@ -7,7 +7,8 @@ export async function invoiceMiningGetJobItemsAction(jobId: string) {
 		jobId,
 		{
 			id: true,
-			name: true,
+			fileUrl: true,
+			fileOriginalName: true,
 			status: true,
 			type: true,
 			createdAt: true,

@@ -2,7 +2,7 @@ import { prisma } from '@/services/prisma'
 import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job-item'
 import { createSingleton } from '../utils/create-singleton'
 import { Prisma } from '@prisma/client'
-import { FileWithBase64 } from '../utils/file-with-base-64'
+import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
 
 export class InvoiceMiningJob {
 	private db: typeof prisma
@@ -13,9 +13,9 @@ export class InvoiceMiningJob {
 		this.jobItem = jobItem
 	}
 
-	public async initiate(filesWithBase64: FileWithBase64[], ownerId: string) {
+	public async initiate(savedFiles: FileWithFileURL[], ownerId: string) {
 		const jobId = await this.initiateJob(ownerId)
-		const jobItemIds = await this.initiateJobItems(jobId, filesWithBase64)
+		const jobItemIds = await this.initiateJobItems(jobId, savedFiles)
 		return { jobId, jobItemIds }
 	}
 
@@ -54,11 +54,11 @@ export class InvoiceMiningJob {
 		return jobId
 	}
 
-	private async initiateJobItems(jobId: string, filesWithBase64: FileWithBase64[]) {
+	private async initiateJobItems(jobId: string, savedFiles: FileWithFileURL[]) {
 		const jobItemIds: string[] = []
 		await Promise.all(
-			filesWithBase64.map(async fileWithBase64 => {
-				const jobItemId = await this.jobItem.add(jobId, fileWithBase64)
+			savedFiles.map(async savedFile => {
+				const jobItemId = await this.jobItem.add(jobId, savedFile)
 				jobItemIds.push(jobItemId)
 			}),
 		)

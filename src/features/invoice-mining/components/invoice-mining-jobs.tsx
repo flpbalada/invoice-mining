@@ -39,7 +39,7 @@ async function InvoiceMiningJobsBody({ jobId }: { jobId: string }) {
 			<InvoiceMiningJobsList
 				initialJobItems={jobItems.map(item => ({
 					id: item.id,
-					name: item.name,
+					name: item.fileOriginalName,
 					status: item.status,
 					type: item.type,
 					createdAt: item.createdAt,

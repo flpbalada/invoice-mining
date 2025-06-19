@@ -3,23 +3,26 @@ import { mistralOCR, MistralOCR } from './mistral-ocr'
 import { prisma } from './prisma'
 import { catchError } from '../utils/catch-error'
 import { createSingleton } from '../utils/create-singleton'
-import { FileWithBase64 } from '../utils/file-with-base-64'
+import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
+import { s3, Storage } from './s3'
 
 export class InvoiceMiningJobItem {
 	private db: typeof prisma
 	private mistralOCR: MistralOCR
+	private s3: Storage
 
-	constructor(db: typeof prisma, mistralOCR: MistralOCR) {
+	constructor(db: typeof prisma, mistralOCR: MistralOCR, s3: Storage) {
 		this.db = db
 		this.mistralOCR = mistralOCR
+		this.s3 = s3
 	}
 
-	public async add(jobId: string, fileWithBase64: FileWithBase64) {
+	public async add(jobId: string, savedFile: FileWithFileURL) {
 		const { id } = await this.db.jobItem.create({
 			data: {
 				jobId,
-				name: fileWithBase64.name,
-				fileBase64: fileWithBase64.base64,
+				fileOriginalName: savedFile.name,
+				fileUrl: savedFile.fileUrl,
 				data: {},
 				status: 'PENDING',
 			},
@@ -40,7 +43,8 @@ export class InvoiceMiningJobItem {
 			status: 'IN_PROGRESS',
 		})
 
-		const [error, extractedData] = await catchError(this.mistralOCR.invoke(jobItem.fileBase64))
+		const tmpfileUrl = await this.s3.getTmpUrl(jobItem.fileUrl)
+		const [error, extractedData] = await catchError(this.mistralOCR.invoke(tmpfileUrl))
 
 		if (error) {
 			await this.update(id, {
@@ -73,5 +77,5 @@ export class InvoiceMiningJobItem {
 
 export const invoiceMiningJobItem = createSingleton(
 	'invoiceMiningJobItem',
-	() => new InvoiceMiningJobItem(prisma, mistralOCR),
+	() => new InvoiceMiningJobItem(prisma, mistralOCR, s3),
 )

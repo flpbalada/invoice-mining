@@ -48,7 +48,7 @@ export function InvoiceMiningJobsList({ initialJobItems, jobId }: InvoiceMiningJ
 			setJobItems(
 				items.map(item => ({
 					id: item.id,
-					name: item.name,
+					name: item.fileOriginalName,
 					type: item.type,
 					status: item.status,
 					createdAt: item.createdAt,

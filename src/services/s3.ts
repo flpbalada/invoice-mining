@@ -1,9 +1,10 @@
 // lib/s3.ts
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 import { createSingleton } from '../utils/create-singleton'
 
-class Storage {
+export class Storage {
 	private s3: S3Client
 	private bucket: string
 	private spaceEndpoint: string
@@ -25,27 +26,29 @@ class Storage {
 
 		await this.s3.send(command)
 
-		return filename
+		return this._getUrl(filename)
 	}
 
-	public async getFileAsBase64(filename: string) {
+	public async getTmpUrl(filePath: string, expiresIn: number = 3600) {
+		const cleanedFilePath = this._getCleanedFilePath(filePath)
 		const command = new GetObjectCommand({
-			Bucket: process.env.DO_SPACE_BUCKET,
-			Key: filename,
+			Bucket: this.bucket,
+			Key: cleanedFilePath,
 		})
+		return await getSignedUrl(this.s3, command, { expiresIn })
+	}
 
-		const response = await this.s3.send(command)
-
-		if (!response.Body || typeof response.Body === 'string') {
-			throw new Error('Invalid file body')
+	private _getCleanedFilePath(fileUrl: string) {
+		const spaceEndpointWithBucketName = `${this.spaceEndpoint}/${this.bucket}`
+		let path = fileUrl.replace(spaceEndpointWithBucketName, '')
+		if (path.startsWith('/')) {
+			path = path.slice(1)
 		}
+		return path
+	}
 
-		const chunks: Uint8Array[] = []
-		for await (const chunk of response.Body as unknown as AsyncIterable<Uint8Array>) {
-			chunks.push(chunk)
-		}
-
-		return chunks
+	private _getUrl(filename: string): string {
+		return `${this.spaceEndpoint}/${this.bucket}/${filename}`
 	}
 }
 

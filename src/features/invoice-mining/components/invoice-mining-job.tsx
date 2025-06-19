@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { getTranslations } from 'next-intl/server'
 import { InvoiceMiningJobForm } from './invoice-mining-job-form'
+import { s3 } from '@/services/s3'
 
 type InvoiceMiningJobProps = {
 	jobItemId: string
@@ -20,11 +21,13 @@ export function InvoiceMiningJob(props: InvoiceMiningJobProps) {
 async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
 	const t = await getTranslations('InvoiceMiningJob')
 
-	const { data, fileBase64 } = await invoiceMiningJobItem.get(jobItemId, {
+	const { data, fileUrl } = await invoiceMiningJobItem.get(jobItemId, {
 		id: true,
 		data: true,
-		fileBase64: true,
+		fileUrl: true,
 	})
+
+	const tmpFileUrl = await s3.getTmpUrl(fileUrl)
 
 	const invoiceSchema = mistralOCR.getInvoiceSchema()
 	const parsedData = await invoiceSchema.parseAsync(data)
@@ -84,7 +87,7 @@ async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
 			</div>
 			<div className='col-span-8 overflow-hidden rounded bg-white shadow'>
 				<iframe
-					src={fileBase64}
+					src={tmpFileUrl}
 					width='100%'
 					height='100%'
 					title='PDF Viewer'

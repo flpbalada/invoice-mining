@@ -2,8 +2,8 @@ import { invoiceMiningJobItem, InvoiceMiningJobItem } from './invoice-mining-job
 import { invoiceMiningJob, InvoiceMiningJob } from './invoice-mining-job'
 import { log, Logger } from './logger'
 import { createSingleton } from '../utils/create-singleton'
-import { FileWithBase64 } from '../utils/file-with-base-64'
 import { prisma } from './prisma'
+import { FileWithFileURL } from '../features/invoice-mining/utils/file-with-file-url'
 
 class InvoiceMining {
 	private db: typeof prisma
@@ -31,9 +31,9 @@ class InvoiceMining {
 		this.invoiceMiningJob = invoiceMiningJob
 	}
 
-	public async initJob(filesWithBase64: FileWithBase64[], ownerId: string) {
-		this.log.info(`Starting invoice mining job with ${filesWithBase64.length} files.`)
-		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(filesWithBase64, ownerId)
+	public async initJob(savedFiles: FileWithFileURL[], ownerId: string) {
+		this.log.info(`Starting invoice mining job with ${savedFiles.length} files.`)
+		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(savedFiles, ownerId)
 		jobItemIds.forEach(id => this.jobItemIdsQueue.push(id))
 		this.log.info(`Job initiated with ID: ${jobId} and ${jobItemIds.length} items.`)
 		return jobId
