@@ -21,7 +21,7 @@ export function NavbarUserMenu({ isUserSignedIn }: NavbarUserMenuProps) {
 	return (
 		<Menu as={Fragment}>
 			<MenuButton as={Fragment}>
-				<button className={clsx('btn btn-primary btn-sm')}>
+				<button className={clsx('btn btn-circle')}>
 					<FaCircleUser />
 				</button>
 			</MenuButton>
