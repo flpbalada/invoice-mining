@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 	description: 'TODO description',
 }
 
-export default async function RootLayout({
-	children,
-}: Readonly<{
+type RootLayoutProps = Readonly<{
 	children: React.ReactNode
-}>) {
+}>
+
+export default async function RootLayout({ children }: RootLayoutProps) {
 	const locale = await getLocale()
 
 	return (
