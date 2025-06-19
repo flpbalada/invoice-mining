@@ -13,8 +13,8 @@ export class InvoiceMiningJob {
 		this.jobItem = jobItem
 	}
 
-	public async initiate(filesWithBase64: FileWithBase64[]) {
-		const jobId = await this.initiateJob()
+	public async initiate(filesWithBase64: FileWithBase64[], ownerId: string) {
+		const jobId = await this.initiateJob(ownerId)
 		const jobItemIds = await this.initiateJobItems(jobId, filesWithBase64)
 		return { jobId, jobItemIds }
 	}
@@ -38,9 +38,15 @@ export class InvoiceMiningJob {
 		})
 	}
 
-	private async initiateJob() {
+	private async initiateJob(ownerId: string) {
 		const { id: jobId } = await this.db.job.create({
-			data: {},
+			data: {
+				owner: {
+					connect: {
+						id: ownerId,
+					},
+				},
+			},
 			select: {
 				id: true,
 			},

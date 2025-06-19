@@ -31,9 +31,9 @@ class InvoiceMining {
 		this.invoiceMiningJob = invoiceMiningJob
 	}
 
-	public async initJob(filesWithBase64: FileWithBase64[]) {
+	public async initJob(filesWithBase64: FileWithBase64[], ownerId: string) {
 		this.log.info(`Starting invoice mining job with ${filesWithBase64.length} files.`)
-		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(filesWithBase64)
+		const { jobId, jobItemIds } = await this.invoiceMiningJob.initiate(filesWithBase64, ownerId)
 		jobItemIds.forEach(id => this.jobItemIdsQueue.push(id))
 		this.log.info(`Job initiated with ID: ${jobId} and ${jobItemIds.length} items.`)
 		return jobId
