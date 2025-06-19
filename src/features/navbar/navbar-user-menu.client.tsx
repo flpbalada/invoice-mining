@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { Fragment } from 'react'
@@ -14,16 +14,18 @@ type NavbarUserMenuItem = {
 
 type NavbarUserMenuProps = {
 	isUserSignedIn: boolean
+	userInitial?: string
 }
 
-export function NavbarUserMenu({ isUserSignedIn }: NavbarUserMenuProps) {
+export function NavbarUserMenu({ isUserSignedIn, userInitial }: NavbarUserMenuProps) {
 	const links = useGetNavbarUserMenuLinks(isUserSignedIn)
+
 	return (
 		<Menu as={Fragment}>
 			<MenuButton as={Fragment}>
-				<button className={clsx('btn btn-circle')}>
-					<FaCircleUser />
-				</button>
+				<Button className={clsx('btn btn-circle', userInitial && 'btn-primary')}>
+					{userInitial ? <span>{userInitial}</span> : <FaCircleUser />}
+				</Button>
 			</MenuButton>
 			<MenuItems
 				anchor='bottom end'
