@@ -1,13 +1,13 @@
 import { Mistral } from '@mistralai/mistralai'
 import { z } from 'zod'
 import { responseFormatFromZodObject } from '@mistralai/mistralai/extra/structChat'
-import { createSingleton } from '../utils/create-singleton'
-import { mistral } from './mistral'
-import { retry } from '../utils/retry'
+import { createSingleton } from '../../../utils/create-singleton'
+import { mistral } from '../../../services/mistral'
+import { retry } from '../../../utils/retry'
 
 type Model = 'mistral-ocr-latest'
 
-export class MistralOCR {
+export class InvoiceOCR {
 	private client: Mistral
 
 	constructor({ mistralClient }: { mistralClient: Mistral }) {
@@ -93,8 +93,8 @@ export class MistralOCR {
 	})
 }
 
-export const mistralOCR = createSingleton('mistralOCR', () => {
-	return new MistralOCR({
+export const invoiceOCR = createSingleton('invoiceOCR', () => {
+	return new InvoiceOCR({
 		mistralClient: mistral,
 	})
 })

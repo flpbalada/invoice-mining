@@ -1,5 +1,5 @@
 import { invoiceMiningJobItem } from '@/features/invoice-mining/services/invoice-mining-job-item'
-import { mistralOCR } from '@/services/mistral-ocr'
+import { invoiceOCR } from '@/features/invoice-mining/services/mistral-ocr'
 import { Suspense } from 'react'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { getTranslations } from 'next-intl/server'
@@ -29,7 +29,7 @@ async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
 
 	const tmpFileUrl = await s3.getTmpUrl(fileUrl)
 
-	const invoiceSchema = mistralOCR.getInvoiceSchema()
+	const invoiceSchema = invoiceOCR.getInvoiceSchema()
 	const parsedData = await invoiceSchema.parseAsync(data)
 
 	const invoiceFormFields = typedEntries(parsedData.invoice).map(([key, value]) => ({

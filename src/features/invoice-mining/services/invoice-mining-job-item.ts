@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { mistralOCR, MistralOCR } from '../../../services/mistral-ocr'
+import { invoiceOCR, InvoiceOCR } from './mistral-ocr'
 import { prisma } from '../../../services/prisma'
 import { catchError } from '../../../utils/catch-error'
 import { createSingleton } from '../../../utils/create-singleton'
@@ -8,12 +8,12 @@ import { s3, Storage } from '../../../services/s3'
 
 export class InvoiceMiningJobItem {
 	private db: typeof prisma
-	private mistralOCR: MistralOCR
+	private invoiceOCR: InvoiceOCR
 	private s3: Storage
 
-	constructor(db: typeof prisma, mistralOCR: MistralOCR, s3: Storage) {
+	constructor(db: typeof prisma, invoiceOCR: InvoiceOCR, s3: Storage) {
 		this.db = db
-		this.mistralOCR = mistralOCR
+		this.invoiceOCR = invoiceOCR
 		this.s3 = s3
 	}
 
@@ -44,7 +44,7 @@ export class InvoiceMiningJobItem {
 		})
 
 		const tmpfileUrl = await this.s3.getTmpUrl(jobItem.fileUrl)
-		const [error, extractedData] = await catchError(this.mistralOCR.invoke(tmpfileUrl))
+		const [error, extractedData] = await catchError(this.invoiceOCR.invoke(tmpfileUrl))
 
 		if (error) {
 			await this.update(id, {
@@ -77,5 +77,5 @@ export class InvoiceMiningJobItem {
 
 export const invoiceMiningJobItem = createSingleton(
 	'invoiceMiningJobItem',
-	() => new InvoiceMiningJobItem(prisma, mistralOCR, s3),
+	() => new InvoiceMiningJobItem(prisma, invoiceOCR, s3),
 )
