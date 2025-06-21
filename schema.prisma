@@ -19,6 +19,7 @@ model Job {
 model JobItem {
   id               String        @id @default(cuid())
   fileOriginalName String
+  fileType         String
   fileUrl          String
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt

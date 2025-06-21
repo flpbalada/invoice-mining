@@ -5,6 +5,8 @@ import { createSingleton } from '../../../utils/create-singleton'
 import { mistral } from '../../../services/mistral'
 import { retry } from '../../../utils/retry'
 
+type InvoiceOCRDocument = { type: 'document_url'; documentUrl: string } | { type: 'image_url'; imageUrl: string }
+
 type Model = 'mistral-ocr-latest'
 
 export class InvoiceOCR {
@@ -14,17 +16,17 @@ export class InvoiceOCR {
 		this.client = mistralClient
 	}
 
-	public async invoke(documentUrl: string) {
-		return await this._getDocumentInJSON(documentUrl)
+	public async invoke(document: InvoiceOCRDocument) {
+		return await this._getDocumentInJSON(document)
 	}
 
 	public getInvoiceSchema() {
 		return this._invoiceSchema
 	}
 
-	private async _getDocumentInJSON(documentUrl: string) {
+	private async _getDocumentInJSON(document: InvoiceOCRDocument) {
 		const { documentAnnotation } = await this._processDocument({
-			documentUrl: documentUrl,
+			document,
 		})
 
 		if (!documentAnnotation) {
@@ -35,21 +37,18 @@ export class InvoiceOCR {
 	}
 
 	private async _processDocument({
-		documentUrl,
+		document,
 		model = 'mistral-ocr-latest',
 		includeImageBase64 = false,
 	}: {
-		documentUrl: string
+		document: InvoiceOCRDocument
 		model?: Model
 		includeImageBase64?: boolean
 	}) {
 		const documentAnnotationFormat = responseFormatFromZodObject(this._invoiceSchema)
 		const ocrProcessPromise = this.client.ocr.process({
 			model,
-			document: {
-				type: 'document_url',
-				documentUrl,
-			},
+			document,
 			documentAnnotationFormat,
 			includeImageBase64,
 		})

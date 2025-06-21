@@ -29,7 +29,7 @@ export function InvoiceMiningUploadFilesForm() {
 						id='files'
 						name='files'
 						type='file'
-						accept='.pdf'
+						accept='.pdf,.jpg,.jpeg,.png'
 						multiple
 						className='file-input'
 						disabled={pending || jobId.length > 0}

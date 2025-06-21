@@ -23,6 +23,7 @@ export class InvoiceMiningJobItem {
 				jobId,
 				fileOriginalName: savedFile.name,
 				fileUrl: savedFile.fileUrl,
+				fileType: savedFile.type,
 				data: {},
 				status: 'PENDING',
 			},
@@ -44,7 +45,15 @@ export class InvoiceMiningJobItem {
 		})
 
 		const tmpfileUrl = await this.s3.getTmpUrl(jobItem.fileUrl)
-		const [error, extractedData] = await catchError(this.invoiceOCR.invoke(tmpfileUrl))
+
+		const fileType = this._isFileTypeImageOrPdf(jobItem.fileType)
+
+		const invokeProps =
+			fileType === 'image'
+				? { type: 'image_url' as const, imageUrl: tmpfileUrl }
+				: { type: 'document_url' as const, documentUrl: tmpfileUrl }
+
+		const [error, extractedData] = await catchError(this.invoiceOCR.invoke(invokeProps))
 
 		if (error) {
 			await this.update(id, {
@@ -72,6 +81,12 @@ export class InvoiceMiningJobItem {
 			where: { id },
 			data,
 		})
+	}
+
+	private _isFileTypeImageOrPdf(fileType: string): 'image' | 'pdf' {
+		if (fileType.startsWith('image/')) return 'image'
+		if (fileType === 'application/pdf') return 'pdf'
+		throw new Error(`Unsupported file type: ${fileType}`)
 	}
 }
 

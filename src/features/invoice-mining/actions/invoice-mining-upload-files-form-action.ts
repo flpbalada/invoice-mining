@@ -30,6 +30,7 @@ async function saveFiles(files: File[]): Promise<FileWithFileURL[]> {
 			name: file.name,
 			fileUrl: savedFileUrl,
 			size: file.size,
+			type: file.type,
 		})
 	}
 
