@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation'
+import { Homepage } from '@/features/homepage/homepage'
 
 export default function Page() {
-	redirect('/invoice-mining')
+	return <Homepage />
 }
