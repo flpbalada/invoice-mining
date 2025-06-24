@@ -36,6 +36,9 @@ async function InvoiceMiningJobsBody({ jobId }: { jobId: string }) {
 			<div className='w-full'>
 				<h1 className='mb-4 text-base'>{t('title', { date: jobCreateAtFormatted })}</h1>
 			</div>
+			<div>
+				<button>{t('download')}</button>
+			</div>
 			<InvoiceMiningJobsList
 				initialJobItems={jobItems.map(item => ({
 					id: item.id,

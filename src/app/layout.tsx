@@ -10,8 +10,9 @@ import { Footer } from '@/features/footer/footer'
 import { GlobalErrorHandler } from '@/components/errors'
 
 export const metadata: Metadata = {
-	title: 'TODO title',
-	description: 'TODO description',
+	title: 'Chytré vytěžování faktur pomocí AI | Vytěženo.cz',
+	description:
+		'Ideální pro podnikatele, živnostníky, účetní a malé až střední firmy, které chtějí ušetřit čas při zpracování dokladů a mít data připravena pro analýzy či účetní systémy.',
 }
 
 type RootLayoutProps = Readonly<{
