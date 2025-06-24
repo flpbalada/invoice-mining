@@ -5,7 +5,7 @@ down:
 	docker compose down
 
 production-up:
-	docker compose -f docker-compose.prod.yml up --build
+	docker compose -f docker-compose.prod.yml up --build -d
 
 prisma-studio:
 	docker compose exec web yarn prisma studio
