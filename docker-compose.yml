@@ -1,0 +1,38 @@
+services:
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        ports:
+            - '3000:3000'
+            - '5555:5555'
+        volumes:
+            - .:/app
+            - node_modules:/app/node_modules
+        env_file: .env
+        depends_on:
+            - db
+
+    db:
+        image: postgres:17
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+    nginx:
+        image: nginx:latest
+        ports:
+            - '80:80'
+        volumes:
+            - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+        depends_on:
+            - web
+
+volumes:
+    node_modules:
+    postgres_data:
