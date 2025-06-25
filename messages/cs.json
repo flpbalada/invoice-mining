@@ -70,6 +70,14 @@
 			"invoice": "faktura"
 		}
 	},
+	"InvoiceMiningJobsExport": {
+		"download": "Stáhnout",
+		"downloadCSV": "Stáhnout CSV",
+		"downloadJSON": "Stáhnout JSON",
+		"downloadXLSX": "Stáhnout XLSX (Excel)",
+		"exportGoogleSheets": "Do Google Sheets",
+		"notImplemented": "Funkce exportu dat prozatím není implementována."
+	},
 	"InvoiceMiningJob": {
 		"extractedData": {
 			"title": "Vytěžené údaje",
