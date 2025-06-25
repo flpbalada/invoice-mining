@@ -1,5 +1,4 @@
 import { InvoiceMiningContainer } from './components/invoice-mining-container'
-import { InvoiceMiningHero } from './components/invoice-mining-hero'
 import { InvoiceMiningJobs } from './components/invoice-mining-jobs'
 import { InvoiceMiningJob } from './components/invoice-mining-job'
 import { InvoiceMiningUploadFilesForm } from './components/invoice-mining-upload-files-form'
@@ -41,7 +40,6 @@ export function InvoiceMining(props: InvoiceMiningProps) {
 
 	return (
 		<InvoiceMiningContainer>
-			<InvoiceMiningHero />
 			<InvoiceMiningUploadFilesForm />
 		</InvoiceMiningContainer>
 	)
