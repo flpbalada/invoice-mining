@@ -92,8 +92,12 @@ export class InvoiceOCR {
 	})
 }
 
-export const invoiceOCR = createSingleton('invoiceOCR', () => {
-	return new InvoiceOCR({
-		mistralClient: mistral,
-	})
-})
+export const invoiceOCR = createSingleton(
+	'invoiceOCR',
+	() => {
+		return new InvoiceOCR({
+			mistralClient: mistral,
+		})
+	},
+	{ forceNewInstance: process.env.NODE_ENV === 'development' },
+)

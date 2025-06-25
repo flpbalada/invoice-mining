@@ -69,4 +69,7 @@ export class InvoiceMiningJob {
 export const invoiceMiningJob = createSingleton(
 	'invoiceMiningJob',
 	() => new InvoiceMiningJob(prisma, invoiceMiningJobItem),
+	{
+		forceNewInstance: process.env.NODE_ENV === 'development',
+	},
 )

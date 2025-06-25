@@ -133,4 +133,5 @@ export const invoiceMining = createSingleton(
 			invoiceMiningJob: invoiceMiningJob,
 			invoiceMiningJobItem: invoiceMiningJobItem,
 		}),
+	{ forceNewInstance: process.env.NODE_ENV === 'development' },
 )
