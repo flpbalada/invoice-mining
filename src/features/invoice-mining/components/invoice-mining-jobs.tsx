@@ -3,7 +3,6 @@ import { getFormatter, getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
 import { invoiceMiningGetJobItemsAction } from '../actions/invoice-mining-get-job-items-action'
 import { InvoiceMiningJobsList } from './invoice-mining-jobs-list.client'
-import { InvoiceMiningJobsExport } from './invoice-mining-jobs-export'
 
 type InvoiceMiningJobsProps = {
 	jobId: string
@@ -34,14 +33,7 @@ async function InvoiceMiningJobsBody({ jobId }: { jobId: string }) {
 
 	return (
 		<>
-			<div className='mb-4 flex w-full flex-col items-center justify-between gap-4 md:flex-row'>
-				<div>
-					<h1 className='text-base'>{t('title', { date: jobCreateAtFormatted })}</h1>
-				</div>
-				<div>
-					<InvoiceMiningJobsExport jobId={jobId} />
-				</div>
-			</div>
+			<h1 className='mb-4 w-full text-base'>{t('title', { date: jobCreateAtFormatted })}</h1>
 
 			<InvoiceMiningJobsList
 				initialJobItems={jobItems.map(item => ({
