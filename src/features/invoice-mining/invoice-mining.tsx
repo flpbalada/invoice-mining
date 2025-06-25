@@ -4,6 +4,7 @@ import { InvoiceMiningJob } from './components/invoice-mining-job'
 import { InvoiceMiningUploadFilesForm } from './components/invoice-mining-upload-files-form'
 import { InvoiceMiningBreadcrumb } from './components/invoice-mining-breadcrumb'
 import { useTranslations } from 'next-intl'
+import { InvoiceMiningJobsByUser } from './components/invoice-mining-jobs-by-user'
 
 type UploadStepProps = {
 	step: 'upload'
@@ -71,7 +72,10 @@ export function InvoiceMining(props: InvoiceMiningProps) {
 
 	return (
 		<InvoiceMiningContainer>
-			<InvoiceMiningUploadFilesForm />
+			<div className='w-full space-y-4'>
+				<InvoiceMiningUploadFilesForm />
+				<InvoiceMiningJobsByUser />
+			</div>
 		</InvoiceMiningContainer>
 	)
 }

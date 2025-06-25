@@ -98,6 +98,30 @@ class InvoiceMining {
 
 		this.log.info(`Requeued ${failedJobItems.length} failed job items.`)
 	}
+
+	public async listJobsByOwner(ownerId: string, page: number = 1, limit: number = 10) {
+		const jobs = await this.db.job.findMany({
+			where: { ownerId },
+			skip: (page - 1) * limit,
+			take: limit,
+			orderBy: { createdAt: 'desc' },
+			select: {
+				id: true,
+				createdAt: true,
+				updatedAt: true,
+				items: {
+					select: {
+						id: true,
+						status: true,
+					},
+				},
+			},
+		})
+
+		const totalCount = await this.db.job.count({ where: { ownerId } })
+		const totalPages = Math.ceil(totalCount / limit)
+		return { jobs, totalCount, totalPages }
+	}
 }
 
 export const invoiceMining = createSingleton(

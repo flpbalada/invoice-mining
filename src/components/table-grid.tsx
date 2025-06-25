@@ -14,7 +14,7 @@ export function TableGrid({ children, columns = 3 }: { children: ReactNode; colu
 	return (
 		<TableGridContext.Provider value={{ columns }}>
 			<div className='w-full overflow-x-auto rounded-lg bg-white p-4 shadow-md'>
-				<div className={clsx('grid w-full min-w-4xl gap-2 text-sm', `grid-cols-${columns}`)}>{children}</div>
+				<div className={clsx('grid w-full gap-2 text-sm', `grid-cols-${columns}`)}>{children}</div>
 			</div>
 		</TableGridContext.Provider>
 	)
@@ -59,7 +59,7 @@ function Cell({ children, justify }: { children: ReactNode; justify?: 'start' | 
 		start: 'justify-start',
 		end: 'justify-end',
 	}
-	return <div className={clsx('flex items-center', justify && justifyMap[justify])}>{children}</div>
+	return <div className={clsx('flex min-w-32 items-center', justify && justifyMap[justify])}>{children}</div>
 }
 
 function DateTime({ date }: { date: Date }) {
