@@ -34,7 +34,7 @@ async function InvoiceMiningJobsBody({ jobId }: { jobId: string }) {
 
 	return (
 		<>
-			<div className='mb-4 flex w-full items-center justify-between'>
+			<div className='mb-4 flex w-full flex-col items-center justify-between gap-4 md:flex-row'>
 				<div>
 					<h1 className='text-base'>{t('title', { date: jobCreateAtFormatted })}</h1>
 				</div>

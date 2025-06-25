@@ -51,7 +51,7 @@ async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
 
 	return (
 		<div className='grid w-full grid-cols-12 gap-4'>
-			<div className='mg-white col-span-4 space-y-4 rounded bg-white p-4 shadow'>
+			<div className='mg-white col-span-12 space-y-4 rounded bg-white p-4 shadow md:col-span-4'>
 				<h2>{t('extractedData.title')}</h2>
 				<TabGroup>
 					<TabList className='tabs tabs-box'>
@@ -85,7 +85,7 @@ async function InvoiceMiningJobBody({ jobItemId }: InvoiceMiningJobProps) {
 					</TabPanels>
 				</TabGroup>
 			</div>
-			<div className='col-span-8 overflow-hidden rounded bg-white shadow'>
+			<div className='col-span-12 min-h-96 overflow-hidden rounded bg-white shadow md:col-span-8'>
 				<iframe
 					src={tmpFileUrl}
 					width='100%'
