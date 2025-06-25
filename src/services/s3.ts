@@ -35,7 +35,8 @@ export class Storage {
 			Bucket: this.bucket,
 			Key: cleanedFilePath,
 		})
-		return await getSignedUrl(this.s3, command, { expiresIn })
+		const signedUrl = await getSignedUrl(this.s3, command, { expiresIn })
+		return signedUrl
 	}
 
 	private _getCleanedFilePath(fileUrl: string) {
