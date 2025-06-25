@@ -6,25 +6,25 @@ import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState } from 'react'
 
-type Job = {
+type JobsGroup = {
 	id: string
 	createdAt: Date
 	updatedAt: Date
 }
 
-type InvoiceMiningJobsListProps = {
-	initialJobs: Job[]
+type InvoiceMiningJobsGroupProps = {
+	initialJobsGroups: JobsGroup[]
 }
 
-export function InvoiceMiningJobsByUserList({ initialJobs }: InvoiceMiningJobsListProps) {
+export function InvoiceMiningJobsGroupsList({ initialJobsGroups }: InvoiceMiningJobsGroupProps) {
 	const t = useTranslations('InvoiceMiningJobs')
-	const [jobs] = useState<Job[]>(initialJobs)
+	const [jobsGroups] = useState<JobsGroup[]>(initialJobsGroups)
 
 	return (
 		<List
-			items={jobs.map(job => ({
-				id: job.id,
-				item: job,
+			items={jobsGroups.map(jobsGroup => ({
+				id: jobsGroup.id,
+				item: jobsGroup,
 			}))}
 			Item={({ item }) => (
 				<TableGrid.Row>

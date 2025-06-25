@@ -34,5 +34,8 @@ prisma-push:
 prisma-generate:
 	docker compose exec web yarn prisma generate
 
+prisma-reset:
+	docker compose exec web yarn prisma migrate reset --force
+
 print-web-env:
 	docker compose exec web printenv

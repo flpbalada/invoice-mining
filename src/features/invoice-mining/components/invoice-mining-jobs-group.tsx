@@ -1,17 +1,17 @@
 import { auth } from '@/services/auth'
 import { Suspense } from 'react'
 import { invoiceMining } from '../services/invoice-mining'
-import { InvoiceMiningJobsByUserList } from './invoice-mining-jobs-by-user-list.client'
+import { InvoiceMiningJobsGroupsList } from './invoice-mining-jobs-groups-list.client'
 
-export function InvoiceMiningJobsByUser() {
+export function InvoiceMiningJobsGroups() {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<InvoiceMiningJobsByUserBody />
+			<InvoiceMiningJobsGroupsBody />
 		</Suspense>
 	)
 }
 
-async function InvoiceMiningJobsByUserBody() {
+async function InvoiceMiningJobsGroupsBody() {
 	const session = await auth()
 
 	if (!session || session?.user?.id === undefined) {
@@ -22,9 +22,9 @@ async function InvoiceMiningJobsByUserBody() {
 
 	const ownerId = session.user.id
 
-	const { jobs } = await invoiceMining.listJobsByOwner(ownerId, 1, 10)
+	const { jobsGroups } = await invoiceMining.listJobsGroupsByOwner(ownerId, 1, 10)
 
-	if (!jobs || jobs.length === 0) return false
+	if (!jobsGroups || jobsGroups.length === 0) return false
 
-	return <InvoiceMiningJobsByUserList initialJobs={jobs} />
+	return <InvoiceMiningJobsGroupsList initialJobsGroups={jobsGroups} />
 }
