@@ -6,9 +6,10 @@ import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
-import { useFormatter } from 'use-intl'
 import { invoiceMiningGetJobItemsAction } from '../actions/invoice-mining-get-job-items-action'
 import { useRouter } from 'next/navigation'
+import { TableGrid } from '@/components/table-grid'
+import { InvoiceMiningJobsExport } from './invoice-mining-jobs-export'
 
 type JobItem = {
 	id: string
@@ -75,21 +76,21 @@ export function InvoiceMiningJobsList({ initialJobItems, jobId }: InvoiceMiningJ
 				item: item,
 			}))}
 			Item={({ item }) => (
-				<>
-					<div className='flex items-center font-bold'>{item.name}</div>
-					<div className='flex items-center'>
+				<TableGrid.Row>
+					<TableGrid.Cell>{item.name}</TableGrid.Cell>
+					<TableGrid.Cell>
 						<InvoiceTypeBadge type={item.type} />
-					</div>
-					<div className='flex items-center'>
+					</TableGrid.Cell>
+					<TableGrid.Cell>
 						<StatusBadge status={item.status} />
-					</div>
-					<div className='flex items-center'>
-						<DateTime date={item.createdAt} />
-					</div>
-					<div className='flex items-center'>
-						<DateTime date={item.updatedAt} />
-					</div>
-					<div className='flex items-center justify-end'>
+					</TableGrid.Cell>
+					<TableGrid.Cell>
+						<TableGrid.DateTime date={item.createdAt} />
+					</TableGrid.Cell>
+					<TableGrid.Cell>
+						<TableGrid.DateTime date={item.updatedAt} />
+					</TableGrid.Cell>
+					<TableGrid.Cell justify='end'>
 						<button
 							disabled={item.status !== 'COMPLETED'}
 							className='btn btn-primary btn-sm btn-soft'
@@ -97,26 +98,23 @@ export function InvoiceMiningJobsList({ initialJobItems, jobId }: InvoiceMiningJ
 						>
 							{t('actions.open')}
 						</button>
-					</div>
-				</>
+					</TableGrid.Cell>
+				</TableGrid.Row>
 			)}
 			Container={({ children }) => (
-				<div className='w-full overflow-x-auto rounded-lg bg-white p-4 shadow-md'>
-					<div className='grid w-full min-w-4xl grid-cols-6 gap-2 text-sm'>
-						{[
-							t('columns.name'),
-							t('columns.type'),
-							t('columns.status'),
-							t('columns.created'),
-							t('columns.updated'),
-							'',
-						].map((header, idx) => (
-							<div key={idx}>{header}</div>
-						))}
-						<div className='col-span-6 border-b border-b-gray-200' />
-						{children}
-					</div>
-				</div>
+				<TableGrid columns={6}>
+					<TableGrid.Head>
+						<TableGrid.Cell>{t('columns.name')}</TableGrid.Cell>
+						<TableGrid.Cell>{t('columns.type')}</TableGrid.Cell>
+						<TableGrid.Cell>{t('columns.status')}</TableGrid.Cell>
+						<TableGrid.Cell>{t('columns.created')}</TableGrid.Cell>
+						<TableGrid.Cell>{t('columns.updated')}</TableGrid.Cell>
+						<TableGrid.Cell justify='end'>
+							<InvoiceMiningJobsExport jobId={jobId} />
+						</TableGrid.Cell>
+					</TableGrid.Head>
+					<TableGrid.Body>{children}</TableGrid.Body>
+				</TableGrid>
 			)}
 		/>
 	)
@@ -153,13 +151,4 @@ function InvoiceTypeBadge({ type }: { type: $Enums.JobItemType }) {
 	const t = useTranslations('InvoiceMiningJobs')
 
 	return <span className='badge badge-info badge-soft'>{t(`type.${type.toLocaleLowerCase()}`)}</span>
-}
-
-function DateTime({ date }: { date: Date }) {
-	const format = useFormatter()
-	const dateFormatted = format.dateTime(date, {
-		dateStyle: 'long',
-		timeStyle: 'short',
-	})
-	return <span>{dateFormatted}</span>
 }

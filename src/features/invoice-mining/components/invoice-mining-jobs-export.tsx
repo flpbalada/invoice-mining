@@ -15,7 +15,7 @@ export function InvoiceMiningJobsExport({ jobId }: { jobId: string }) {
 
 	return (
 		<Menu as={Fragment}>
-			<MenuButton className='btn'>
+			<MenuButton className='btn btn-ghost btn-sm'>
 				{t('download')}
 				<FaDownload />
 			</MenuButton>
