@@ -76,7 +76,7 @@
 		"downloadJSON": "Stáhnout JSON",
 		"downloadXLSX": "Stáhnout XLSX (Excel)",
 		"exportGoogleSheets": "Do Google Sheets",
-		"notImplemented": "Funkce exportu dat prozatím není implementována."
+		"notImplemented": "ℹ️ Funkce exportu dat prozatím není implementována."
 	},
 	"InvoiceMiningJob": {
 		"extractedData": {
@@ -113,6 +113,7 @@
 		"description": "Popis",
 		"quantity": "Množství",
 		"unitPrice": "Cena za jednotku",
-		"totalPrice": "Celková cena"
+		"totalPrice": "Celková cena",
+		"notImplemented": "ℹ️ Funkce editace vytěžených dat prozatím není implementována."
 	}
 }

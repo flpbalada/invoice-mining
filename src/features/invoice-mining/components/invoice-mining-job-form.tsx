@@ -5,6 +5,7 @@ import { isDate } from '../../../utils/is-date'
 import { isNumber } from '../../../utils/is-number'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
+import toast from 'react-hot-toast'
 
 type InvoiceMiningJobFormFieldKey = string
 
@@ -21,6 +22,7 @@ type InvoiceMiningJobFormProps = {
 
 export function InvoiceMiningJobForm({ fields }: InvoiceMiningJobFormProps) {
 	const t = useTranslations('InvoiceMiningJobForm')
+
 	const getInputType = (value: InvoiceMiningJobFormFieldValue): string => {
 		if (isNumber(value)) return 'number'
 		if (isDate(value)) return 'date'
@@ -34,6 +36,8 @@ export function InvoiceMiningJobForm({ fields }: InvoiceMiningJobFormProps) {
 		[t],
 	)
 
+	const onInputClick = useCallback(() => toast(t('notImplemented')), [t])
+
 	return (
 		<form>
 			{fields.map(field => (
@@ -46,7 +50,7 @@ export function InvoiceMiningJobForm({ fields }: InvoiceMiningJobFormProps) {
 						type={getInputType(field.value)}
 						defaultValue={String(field.value)}
 						className='input w-full'
-						disabled
+						onClick={onInputClick}
 					/>
 				</fieldset>
 			))}
