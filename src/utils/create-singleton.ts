@@ -1,13 +1,13 @@
-export function createSingleton<T>(name: string, initFn: () => T): T {
-	if (process.env.NODE_ENV !== 'production') {
-		return initFn()
+export function createSingleton<T>(singletonKey: string, createInstance: () => T, onlyInProduction: boolean = true): T {
+	if (!onlyInProduction) {
+		return createInstance()
 	}
-	const globalRef = global as unknown as Record<string, T>
-	const globalKey = `__singleton_${name}`
+	const globalScope = global as unknown as Record<string, T>
+	const globalSingletonKey = `__singleton_${singletonKey}`
 
-	const instance = globalRef[globalKey] ?? initFn()
+	const instance = globalScope[globalSingletonKey] ?? createInstance()
 
-	globalRef[globalKey] = instance
+	globalScope[globalSingletonKey] = instance
 
 	return instance
 }
