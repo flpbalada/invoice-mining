@@ -34,10 +34,14 @@
 		},
 		"submit": "Přihlásit se"
 	},
-	"InvoiceMiningHero": {
-		"title": "Extrakce dat z faktur",
-		"description": "Nahrajte své faktury ve formátu PDF. Systém automaticky extrahuje potřebná data a zobrazí je v přehledné tabulce. Získaná data můžete následně snadno exportovat a nahrát do svých účetních systémů nebo je využít pro různé analýzy."
+	"InvoiceMining": {
+		"breadcrumb": {
+			"uploadFiles": "Nahrát soubory",
+			"jobs": "Nahrané faktury",
+			"documentDetails": "Podrobnosti dokumentu"
+		}
 	},
+
 	"InvoiceMiningUploadFilesForm": {
 		"inputFile": {
 			"label": "Vyberte faktury (PDF nebo obrázky):"
