@@ -49,7 +49,7 @@ export function InvoiceMiningJobForm({ fields }: InvoiceMiningJobFormProps) {
 					<Input
 						type={getInputType(field.value)}
 						defaultValue={String(field.value)}
-						className='input w-full'
+						className='input w-full text-base'
 						onClick={onInputClick}
 					/>
 				</fieldset>

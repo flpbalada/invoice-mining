@@ -49,7 +49,7 @@ function SignInForm() {
 					type='text'
 					name='email'
 					placeholder={t('email.placeholder')}
-					className='input w-full'
+					className='input w-full text-base'
 				/>
 			</div>
 			<Button
