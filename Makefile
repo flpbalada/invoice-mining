@@ -7,6 +7,18 @@ down:
 production-up:
 	docker compose -f docker-compose.prod.yml up --build -d
 
+production-deploy: production-down production-build production-up production-prune
+	@echo "✅ Production deployment complete."
+
+production-down:
+	docker compose -f docker-compose.prod.yml down
+
+production-build:
+	docker compose -f docker-compose.prod.yml build --no-cache
+
+production-prune:
+	docker image prune -f
+
 prisma-studio:
 	docker compose exec web yarn prisma studio
 
