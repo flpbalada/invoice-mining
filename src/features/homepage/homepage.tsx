@@ -79,25 +79,6 @@ export async function Homepage() {
 					</div>
 				</section>
 
-				<section className='rounded-2xl bg-white p-8 text-center'>
-					<h2 className='mb-4 text-2xl font-semibold'>Cenový model</h2>
-					<div className='mb-6 flex flex-col items-center justify-center gap-2'>
-						<div className='badge badge-success badge-lg border-none bg-green-100 text-sm text-green-700'>
-							10 faktur zdarma
-						</div>
-						<div className='badge badge-info badge-lg border-none bg-blue-100 text-sm text-blue-700'>
-							Poté jen 1&nbsp;Kč / faktura
-						</div>
-					</div>
-					<p className='mb-6'>Platíte pohodlně pomocí předplacených kreditů. Žádné závazky.</p>
-					<Link
-						href='/auth/sign-in'
-						className='btn btn-primary btn-lg'
-					>
-						Vyzkoušet zdarma
-					</Link>
-				</section>
-
 				<section className='bg-base-100 rounded-2xl p-8 text-center'>
 					<h2 className='mb-4 text-2xl font-semibold'>Pro koho je služba?</h2>
 					<p className='mx-auto mb-6 max-w-2xl'>
