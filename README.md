@@ -34,9 +34,6 @@ Your application should now be running locally on [http://localhost:3000](http:/
 
 ---
 
-### 🌐 Try It Online
-
-You can also try the application live at [vytezeno.cz](https://vytezeno.cz).
 
 ---
 
